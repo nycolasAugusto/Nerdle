@@ -41,7 +41,6 @@ class EquacaoRemoteDataSource {
     // O id é o nome do documento, então não precisa ser gravado como campo
     private fun Equacao.paraMapa() = mapOf(
         "expressao" to expressao,
-        "dificuldade" to dificuldade,
         "ativa" to ativa
     )
 }

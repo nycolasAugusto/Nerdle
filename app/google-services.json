@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "577639188925",
+    "project_id": "nerdle-4dea4",
+    "storage_bucket": "nerdle-4dea4.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:577639188925:android:7812ab381f067515562ad4",
+        "android_client_info": {
+          "package_name": "com.example.nerdle"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCVW7i5biLuYZe4BzCu1E50M1WQ9XWBVWM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
