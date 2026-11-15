@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.nerdle.data.repository.PartidaRepository
-import com.example.nerdle.viewmodel.admin.LeaderboardUiState
+import com.example.nerdle.viewmodel.leaderboard.LeaderboardUiState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
