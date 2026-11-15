@@ -1,5 +1,6 @@
 package com.example.nerdle.ui.screens.leaderboard
 
+
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
