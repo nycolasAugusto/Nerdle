@@ -21,11 +21,11 @@ import com.example.nerdle.data.local.AppDatabase
 import com.example.nerdle.data.model.EstadoDigito
 import com.example.nerdle.data.repository.EquacaoRepository
 import com.example.nerdle.data.repository.PartidaRepository
-import com.example.nerdle.viewmodel.jogo.CelulaUi
-import com.example.nerdle.viewmodel.jogo.JogoUiState
-import com.example.nerdle.viewmodel.jogo.JogoViewModel
-import com.example.nerdle.viewmodel.jogo.JogoViewModelFactory
-import com.example.nerdle.viewmodel.jogo.StatusJogo
+import com.example.nerdle.viewmodel.Jogo.CelulaUi
+import com.example.nerdle.viewmodel.Jogo.JogoUiState
+import com.example.nerdle.viewmodel.Jogo.JogoViewModel
+import com.example.nerdle.viewmodel.Jogo.JogoViewModelFactory
+import com.example.nerdle.viewmodel.Jogo.StatusJogo
 import com.example.nerdle.ui.theme.NerdleTheme
 import java.util.Locale
 
@@ -118,6 +118,7 @@ fun AguardandoApelidoContent(
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .systemBarsPadding()
             .padding(24.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
@@ -162,7 +163,9 @@ fun AguardandoApelidoContent(
 @Composable
 fun CarregandoContent() {
     Column(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier
+            .fillMaxSize()
+            .systemBarsPadding(),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
@@ -180,6 +183,7 @@ fun SemEquacoesContent(
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .systemBarsPadding()
             .padding(24.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
@@ -208,6 +212,7 @@ fun JogandoContent(
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .systemBarsPadding()
             .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -257,7 +262,7 @@ fun JogandoContent(
 
         Spacer(modifier = Modifier.weight(1f))
 
-        // Teclado Virtual
+        // Teclado Virtual (Estilo Calculadora)
         TecladoComponent(
             estadoTeclas = state.estadoTeclas,
             onDigitar = onDigitar,
@@ -347,66 +352,63 @@ fun TecladoComponent(
     onApagar: () -> Unit,
     onConfirmar: () -> Unit
 ) {
-    val linha1 = listOf('1', '2', '3', '4', '5', '6', '7', '8', '9', '0')
-    val linha2 = listOf('+', '-', '*', '/', '=')
+    val linhas = listOf(
+        listOf('1', '2', '3', '+'),
+        listOf('4', '5', '6', '-'),
+        listOf('7', '8', '9', '*'),
+        listOf('0', '/', '=', '⌫')
+    )
 
     Column(
-        verticalArrangement = Arrangement.spacedBy(6.dp),
+        verticalArrangement = Arrangement.spacedBy(8.dp),
         modifier = Modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        // Linha 1: Números
-        Row(
-            horizontalArrangement = Arrangement.spacedBy(4.dp),
-            modifier = Modifier.fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            for (c in linha1) {
-                TeclaButton(
-                    caractere = c,
-                    estado = estadoTeclas[c],
-                    modifier = Modifier.weight(1f),
-                    onClick = { onDigitar(c) }
-                )
+        for (linha in linhas) {
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                for (c in linha) {
+                    if (c == '⌫') {
+                        Button(
+                            onClick = onApagar,
+                            modifier = Modifier
+                                .weight(1f)
+                                .height(52.dp),
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = MaterialTheme.colorScheme.surfaceVariant,
+                                contentColor = MaterialTheme.colorScheme.onSurfaceVariant
+                            ),
+                            contentPadding = PaddingValues(0.dp)
+                        ) {
+                            Text("⌫", fontSize = 18.sp, fontWeight = FontWeight.Bold)
+                        }
+                    } else {
+                        TeclaButton(
+                            caractere = c,
+                            estado = estadoTeclas[c],
+                            modifier = Modifier.weight(1f),
+                            onClick = { onDigitar(c) }
+                        )
+                    }
+                }
             }
         }
 
-        // Linha 2: Operadores e Apagar/Enviar
-        Row(
-            horizontalArrangement = Arrangement.spacedBy(4.dp),
-            modifier = Modifier.fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically
+        // Botão Enviar de largura total
+        Button(
+            onClick = onConfirmar,
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(52.dp),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = MaterialTheme.colorScheme.primary,
+                contentColor = MaterialTheme.colorScheme.onPrimary
+            )
         ) {
-            for (c in linha2) {
-                TeclaButton(
-                    caractere = c,
-                    estado = estadoTeclas[c],
-                    modifier = Modifier.weight(1f),
-                    onClick = { onDigitar(c) }
-                )
-            }
-
-            // Botão Apagar
-            Button(
-                onClick = onApagar,
-                modifier = Modifier
-                    .weight(1.5f)
-                    .height(48.dp),
-                contentPadding = PaddingValues(0.dp)
-            ) {
-                Text("⌫", fontSize = 16.sp)
-            }
-
-            // Botão Enviar
-            Button(
-                onClick = onConfirmar,
-                modifier = Modifier
-                    .weight(2f)
-                    .height(48.dp),
-                contentPadding = PaddingValues(0.dp)
-            ) {
-                Text("Enviar", fontSize = 14.sp)
-            }
+            Text("Enviar Palpite", fontSize = 16.sp, fontWeight = FontWeight.Bold)
         }
     }
 }
@@ -433,13 +435,14 @@ fun TeclaButton(
 
     Button(
         onClick = onClick,
-        modifier = modifier.height(48.dp),
+        modifier = modifier.height(52.dp),
         colors = ButtonDefaults.buttonColors(containerColor = corFundo, contentColor = corTexto),
+        shape = RoundedCornerShape(8.dp),
         contentPadding = PaddingValues(0.dp)
     ) {
         Text(
             text = caractere.toString(),
-            fontSize = 16.sp,
+            fontSize = 18.sp,
             fontWeight = FontWeight.Bold
         )
     }
@@ -457,6 +460,7 @@ fun ResultadoContent(
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .systemBarsPadding()
             .padding(24.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center

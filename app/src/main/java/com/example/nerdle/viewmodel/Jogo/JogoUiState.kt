@@ -1,4 +1,4 @@
-package com.example.nerdle.viewmodel.jogo
+package com.example.nerdle.viewmodel.Jogo
 
 import com.example.nerdle.data.model.EstadoDigito
 import com.example.nerdle.util.RegrasJogo
