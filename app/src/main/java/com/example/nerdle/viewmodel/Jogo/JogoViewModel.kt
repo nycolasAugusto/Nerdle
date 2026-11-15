@@ -1,4 +1,4 @@
-package com.example.nerdle.viewmodel.jogo
+package com.example.nerdle.viewmodel.Jogo
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
