@@ -3,7 +3,7 @@ package com.example.nerdle.viewmodel.leaderboard
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.nerdle.data.repository.PartidaRepository
-import com.example.nerdle.viewmodel.admin.LeaderboardViewModel
+import com.example.nerdle.viewmodel.leaderboard.LeaderboardViewModel
 
 class LeaderboardViewModelFactory(
     private val partidaRepository: PartidaRepository
