@@ -1,4 +1,4 @@
-package com.example.nerdle.ui.screens
+package com.example.nerdle.ui.screens.jogo
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -17,7 +17,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.nerdle.data.local.AppDatabase
 import com.example.nerdle.data.model.EstadoDigito
+import com.example.nerdle.data.repository.EquacaoRepository
+import com.example.nerdle.data.repository.PartidaRepository
 import com.example.nerdle.viewmodel.Jogo.CelulaUi
 import com.example.nerdle.viewmodel.Jogo.JogoUiState
 import com.example.nerdle.viewmodel.Jogo.JogoViewModel
@@ -26,16 +29,22 @@ import com.example.nerdle.viewmodel.Jogo.StatusJogo
 import com.example.nerdle.ui.theme.NerdleTheme
 import java.util.Locale
 
-
+/**
+ * Tela do Jogo Nerdle.
+ * Não alterar a assinatura da função: a navegação depende dela.
+ */
 @Composable
 fun JogoScreen(
     onVerRanking: () -> Unit,
     onVoltar: () -> Unit
 ) {
     val context = LocalContext.current
+    val db = remember { AppDatabase.getInstance(context) }
+    val partidaRepo = remember { PartidaRepository(db.partidaDao()) }
+    val equacaoRepo = remember { EquacaoRepository() }
 
     val viewModel: JogoViewModel = viewModel(
-        factory = JogoViewModelFactory(context)
+        factory = JogoViewModelFactory(equacaoRepo, partidaRepo)
     )
 
     val state by viewModel.uiState.collectAsState()

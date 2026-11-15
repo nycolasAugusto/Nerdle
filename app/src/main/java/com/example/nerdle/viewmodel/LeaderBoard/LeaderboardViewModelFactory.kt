@@ -2,17 +2,16 @@ package com.example.nerdle.viewmodel.leaderboard
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.nerdle.data.repository.PartidaRepository
-import com.example.nerdle.viewmodel.leaderboard.LeaderboardViewModel
+import com.example.nerdle.data.repository.LeaderboardRepository
 
 class LeaderboardViewModelFactory(
-    private val partidaRepository: PartidaRepository
+    private val leaderboardRepository: LeaderboardRepository
 ) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(LeaderboardViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
-            return LeaderboardViewModel(partidaRepository) as T
+            return LeaderboardViewModel(leaderboardRepository) as T
         }
         throw IllegalArgumentException("ViewModel desconhecido: ${modelClass.name}")
     }

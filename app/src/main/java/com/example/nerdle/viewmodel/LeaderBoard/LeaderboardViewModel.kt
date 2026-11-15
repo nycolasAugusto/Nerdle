@@ -3,8 +3,7 @@ package com.example.nerdle.viewmodel.leaderboard
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.nerdle.data.repository.PartidaRepository
-import com.example.nerdle.viewmodel.leaderboard.LeaderboardUiState
+import com.example.nerdle.data.repository.LeaderboardRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -13,7 +12,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class LeaderboardViewModel(
-    private val partidaRepository: PartidaRepository
+    private val leaderboardRepository: LeaderboardRepository
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(LeaderboardUiState())
@@ -21,7 +20,7 @@ class LeaderboardViewModel(
 
     init {
         viewModelScope.launch {
-            partidaRepository.ranking
+            leaderboardRepository.observarRanking()
                 .catch { e ->
                     Log.e("Nerdle", "Erro ao buscar ranking", e)
                     _uiState.update { it.copy(carregando = false) }

@@ -6,7 +6,9 @@ import androidx.lifecycle.viewModelScope
 import com.example.nerdle.data.local.PartidaEntity
 import com.example.nerdle.data.model.Equacao
 import com.example.nerdle.data.model.EstadoDigito
+import com.example.nerdle.data.model.ScoreEntry
 import com.example.nerdle.data.repository.EquacaoRepository
+import com.example.nerdle.data.repository.LeaderboardRepository
 import com.example.nerdle.data.repository.PartidaRepository
 import com.example.nerdle.util.AvaliadorEquacao
 import com.example.nerdle.util.RegrasJogo
@@ -23,7 +25,8 @@ import kotlinx.coroutines.launch
 
 class JogoViewModel(
     private val equacaoRepository: EquacaoRepository,
-    private val partidaRepository: PartidaRepository
+    private val partidaRepository: PartidaRepository,
+    private val leaderboardRepository: LeaderboardRepository
 ) : ViewModel() {
 
     private val avaliador = AvaliadorEquacao()
@@ -168,6 +171,13 @@ class JogoViewModel(
                         tempoSegundos = segundos,
                         pontos = pontos,
                         dataHora = System.currentTimeMillis()
+                    )
+                )
+                leaderboardRepository.salvarPontuacao(
+                    ScoreEntry(
+                        nomeJogador = apelido,
+                        tentativas = tentativas,
+                        tempoSegundos = segundos
                     )
                 )
             } catch (e: Exception) {
