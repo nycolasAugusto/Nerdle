@@ -1,4 +1,4 @@
-package com.example.nerdle.viewmodel.LeaderBoard
+package com.example.nerdle.viewmodel.leaderboard
 
 import com.example.nerdle.data.local.PartidaEntity
 
