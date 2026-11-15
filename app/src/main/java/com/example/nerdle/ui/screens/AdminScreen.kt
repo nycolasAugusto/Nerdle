@@ -1,4 +1,4 @@
-package com.example.nerdle.ui.screens.admin
+package com.example.nerdle.ui.screens
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
