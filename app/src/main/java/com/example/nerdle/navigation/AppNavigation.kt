@@ -6,9 +6,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.nerdle.ui.screens.AdminScreen
-import com.example.nerdle.ui.screens.JogoScreen
-import com.example.nerdle.ui.screens.LeaderboardScreen
 import com.example.nerdle.ui.screens.LoginScreen
+import com.example.nerdle.ui.screens.jogo.JogoScreen
+import com.example.nerdle.ui.screens.leaderboard.LeaderboardScreen
 
 /**
  * Define de onde cada tela leva para onde.
