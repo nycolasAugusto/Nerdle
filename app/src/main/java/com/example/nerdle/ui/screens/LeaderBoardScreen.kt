@@ -94,7 +94,7 @@ private fun ScoreEntryItem(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            Text(text = "$posicaoº", style = MaterialTheme.typography.titleLarge)
+            Text(text = "${posicao}º", style = MaterialTheme.typography.titleLarge)
             Column(modifier = Modifier.weight(1f)) {
                 Text(
                     text = scoreEntry.nomeJogador,
