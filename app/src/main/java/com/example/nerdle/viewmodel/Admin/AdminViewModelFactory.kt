@@ -5,7 +5,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.nerdle.data.repository.EquacaoRepository
 
 class AdminViewModelFactory(
-    private val equacaoRepository: EquacaoRepository
+    // Valor padrão: assim a tela cria a factory sem precisar conhecer o repositório (camada data/)
+    private val equacaoRepository: EquacaoRepository = EquacaoRepository()
 ) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
