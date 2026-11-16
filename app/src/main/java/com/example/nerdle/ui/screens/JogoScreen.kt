@@ -25,6 +25,7 @@ import com.example.nerdle.viewmodel.Jogo.CelulaUi
 import com.example.nerdle.viewmodel.Jogo.JogoUiState
 import com.example.nerdle.viewmodel.Jogo.JogoViewModel
 import com.example.nerdle.viewmodel.Jogo.JogoViewModelFactory
+import com.example.nerdle.data.repository.LeaderboardRepository
 import com.example.nerdle.viewmodel.Jogo.StatusJogo
 import com.example.nerdle.ui.theme.NerdleTheme
 import java.util.Locale
@@ -42,9 +43,10 @@ fun JogoScreen(
     val db = remember { AppDatabase.getInstance(context) }
     val partidaRepo = remember { PartidaRepository(db.partidaDao()) }
     val equacaoRepo = remember { EquacaoRepository() }
+    val leaderboardRepo = remember { LeaderboardRepository() }
 
     val viewModel: JogoViewModel = viewModel(
-        factory = JogoViewModelFactory(equacaoRepo, partidaRepo)
+        factory = JogoViewModelFactory(equacaoRepo, partidaRepo, leaderboardRepo)
     )
 
     val state by viewModel.uiState.collectAsState()
