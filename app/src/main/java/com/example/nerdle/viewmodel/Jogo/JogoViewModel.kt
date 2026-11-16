@@ -173,15 +173,22 @@ class JogoViewModel(
                         dataHora = System.currentTimeMillis()
                     )
                 )
-                leaderboardRepository.salvarPontuacao(
-                    ScoreEntry(
-                        nomeJogador = apelido,
-                        tentativas = tentativas,
-                        tempoSegundos = segundos
-                    )
-                )
             } catch (e: Exception) {
                 Log.e("Nerdle", "Erro ao salvar partida", e)
+            }
+
+            if (venceu) {
+                try {
+                    leaderboardRepository.salvarPontuacao(
+                        ScoreEntry(
+                            nomeJogador = apelido,
+                            tentativas = tentativas,
+                            tempoSegundos = segundos
+                        )
+                    )
+                } catch (e: Exception) {
+                    Log.e("Nerdle", "Erro ao salvar pontuacao no placar", e)
+                }
             }
         }
     }
